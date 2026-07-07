@@ -23,13 +23,12 @@ northeast_pivoted = pd.pivot_table(df, index=["Dates"], columns="Time", values="
 
 
 #Plotting
+hours = pd.date_range("01-01-2019", "01-02-2019", freq="h", inclusive="left").hour.astype(str)
+plt.plot(hours, west_pivoted.loc["All"][0:-1])
+plt.xlabel("Hour of the Day (24 Hour Format)")
+plt.ylabel("Average load over 5 yr interval")
+plt.xticks(hours)
+plt.show()
 
-#plt.plot([i+1 for i in range(25)],west_pivoted.loc["All"])
-#plt.plot([i+1 for i in range(25)],east_pivoted.loc["All"])
-#plt.plot([i+1 for i in range(25)],north_pivoted.loc["All"])
-#plt.plot([i+1 for i in range(25)],south_pivoted.loc["All"])
-#plt.plot([i+1 for i in range(25)],northeast_pivoted.loc["All"])
-#plt.plot([i+1 for i in range(25)],national_pivoted.loc["All"])
-#plt.show()
 
 
