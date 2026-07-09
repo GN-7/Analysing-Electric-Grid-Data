@@ -13,10 +13,16 @@ df['Dates'] = pd.to_datetime(df['datetime']).dt.date
 df['Time'] = pd.to_datetime(df['datetime']).dt.time
 
 plots_list = []
-years_plotted_list=[]
+region_input_list = []
+year_input_list = []
 while True:
     year = int(input("Enter year(2019, 2020, 2021, 2022, 2023, 2024): "))
     region = input("Enter Region(National, North, East, West, South, North East): ")
+    region_input_list.append(region)
+    year_input_list.append(year)
+
+    if year == 2024:
+        print("WARNING! DATA FOR 2024 AVAILABLE ONLY FROM 1-1-24 TO 30-4-2024")
 
     if year in [2019, 2020, 2021, 2022, 2023, 2024] and region in ["National", "North", "East", "West", "South", "North East"]:
         pivoted_region = pd.pivot_table(df, index=["Dates"], columns="Time", values=region)
@@ -25,7 +31,7 @@ while True:
         df_region_interval = pivoted_region.loc[datetime.date(year, 1, 1):datetime.date(year, 12, 31)] 
         avg_day_in_region_in_interval = df_region_interval.aggregate("mean", axis=0) #TRY AXIS 1 ALSO FOR DIFFERENT METRIC
         plots_list.append(avg_day_in_region_in_interval)
-        years_plotted_list.append(year)
+                
 
         if input("Do you want to plot?(Yes/No)").strip().lower() == "yes":
             break
@@ -37,15 +43,20 @@ while True:
         print("Enter Data as specified!")
 
 
-
 #---------PLOTTING---------------
 ticks = pd.date_range("01-01-2019", "01-02-2019", freq="h", inclusive="left").hour.astype(str)
 
 for plot in plots_list:
     plt.plot(ticks, plot)
 
-plt.title(f"Average Day of {region} region in {str(years_plotted_list)}")
+labels = []
+for rgn, yr in zip(region_input_list, year_input_list):
+    labels.append(f"Region: {rgn}, Year: {yr}")    
+
+plt.title("Average Day of given years in given regions")
 plt.xlabel("Hour of the day (24H Format)")
 plt.ylabel("Average Electric Load in MW")
-plt.legend(years_plotted_list)
+plt.legend(labels=labels)
+
+
 plt.show()
