@@ -2,19 +2,23 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from pathlib import Path
 import datetime
-#Accessing The Data
+#------------ACCESSING THE RAW DATA--------------------------
 base_dir = Path(__file__).parent
 df = pd.read_excel(f"{base_dir}/MainData.xlsx")
 
 
-#Seperating Date and Time from Timestamp format
+#-----------------SEPERATING DATE AND TIME FROM TIMESTAMP FOR EFFECTIVE SORTING-----------------------
 
 df['Dates'] = pd.to_datetime(df['datetime']).dt.date
 df['Time'] = pd.to_datetime(df['datetime']).dt.time
 
+#----------INITIALIZATION OF LISTS-------------
 plots_list = []
 region_input_list = []
 year_input_list = []
+labels = []
+
+#------------MAIN LOOP---------------------
 while True:
     year = int(input("Enter year(2019, 2020, 2021, 2022, 2023, 2024): "))
     region = input("Enter Region(National, North, East, West, South, North East): ")
@@ -46,10 +50,11 @@ while True:
 #---------PLOTTING---------------
 ticks = pd.date_range("01-01-2019", "01-02-2019", freq="h", inclusive="left").hour.astype(str)
 
+#----------THE ACTUAL PLOTS------------
 for plot in plots_list:
     plt.plot(ticks, plot)
 
-labels = []
+#---------PLOT CUSTOMIZATION------------------
 for rgn, yr in zip(region_input_list, year_input_list):
     labels.append(f"Region: {rgn}, Year: {yr}")    
 
@@ -57,6 +62,5 @@ plt.title("Average Day of given years in given regions")
 plt.xlabel("Hour of the day (24H Format)")
 plt.ylabel("Average Electric Load in MW")
 plt.legend(labels=labels)
-
 
 plt.show()
