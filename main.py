@@ -15,19 +15,26 @@ df['Time'] = pd.to_datetime(df['datetime']).dt.time
 plots_list = []
 years_plotted_list=[]
 while True:
-    year = int(input("Enter year: "))
-    region = input("Enter Region: ")
-    pivoted_region = pd.pivot_table(df, index=["Dates"], columns="Time", values=region)
+    year = int(input("Enter year(2019, 2020, 2021, 2022, 2023, 2024): "))
+    region = input("Enter Region(National, North, East, West, South, North East): ")
 
-    #DataFrame not Pivot Table
-    df_region_interval = pivoted_region.loc[datetime.date(year, 1, 1):datetime.date(year, 12, 31)] 
-    avg_day_in_region_in_interval = df_region_interval.aggregate("mean", axis=0)
-    plots_list.append(avg_day_in_region_in_interval)
-    years_plotted_list.append(year)
-    if input("Do you want to plot?(Yes/No)").strip().lower() == "yes":
-        break
+    if year in [2019, 2020, 2021, 2022, 2023, 2024] and region in ["National", "North", "East", "West", "South", "North East"]:
+        pivoted_region = pd.pivot_table(df, index=["Dates"], columns="Time", values=region)
+
+        #DataFrame not Pivot Table
+        df_region_interval = pivoted_region.loc[datetime.date(year, 1, 1):datetime.date(year, 12, 31)] 
+        avg_day_in_region_in_interval = df_region_interval.aggregate("mean", axis=0) #TRY AXIS 1 ALSO FOR DIFFERENT METRIC
+        plots_list.append(avg_day_in_region_in_interval)
+        years_plotted_list.append(year)
+
+        if input("Do you want to plot?(Yes/No)").strip().lower() == "yes":
+            break
+        else:
+            continue
+    
+
     else:
-        continue
+        print("Enter Data as specified!")
 
 
 
