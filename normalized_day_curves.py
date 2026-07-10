@@ -2,6 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from pathlib import Path
 import datetime
+import numpy as np
 #------------ACCESSING THE RAW DATA--------------------------
 base_dir = Path(__file__).parent
 df = pd.read_excel(f"{base_dir}/MainData.xlsx")
@@ -35,12 +36,11 @@ def normalized_day_curves(region_list: list, year_list: list):
 
             #DataFrame not Pivot Table
             df_region_interval = pivoted_region.loc[datetime.date(year, 1, 1):datetime.date(year, 12, 31)] 
-            avg_day_in_region_in_interval = df_region_interval.aggregate("mean", axis=0) #TRY AXIS 1 ALSO FOR DIFFERENT METRIC
-            mean_of_day = df_region_interval.aggregate("mean", axis=1)
-            normalized_day = []
-            for i, j in zip(avg_day_in_region_in_interval, mean_of_day):
-                normalized_day.append(i/j)
-            plots_list.append(normalized_day)
+            mean_of_day = df_region_interval.mean(axis=1)                 # 365 daily means
+            normalized_days  = df_region_interval.div(mean_of_day, axis=0)     # each day ÷ its OWN mean
+            normalized_day   = normalized_days.mean(axis=0)                    # then average the shapes
+
+            assert np.allclose(normalized_days.mean(axis=1), 1.0), "normalization invariant broken"
 
         else:
             print("Enter Data as specified!")
