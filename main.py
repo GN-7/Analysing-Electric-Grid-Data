@@ -18,17 +18,20 @@ region_input_list = []
 year_input_list = []
 labels = []
 
-#------------MAIN LOOP---------------------
+#------------MAIN LOOP FOR AVERAGES GRAPHS---------------------
 while True:
     year = int(input("Enter year(2019, 2020, 2021, 2022, 2023, 2024): "))
     region = input("Enter Region(National, North, East, West, South, North East): ")
-    region_input_list.append(region)
-    year_input_list.append(year)
+
 
     if year == 2024:
         print("WARNING! DATA FOR 2024 AVAILABLE ONLY FROM 1-1-24 TO 30-4-2024")
 
     if year in [2019, 2020, 2021, 2022, 2023, 2024] and region in ["National", "North", "East", "West", "South", "North East"]:
+        #-----------RELATED TO LABELS------------
+        region_input_list.append(region)
+        year_input_list.append(year)
+        #----------------------CORE LOGIC------------------------
         pivoted_region = pd.pivot_table(df, index=["Dates"], columns="Time", values=region)
 
         #DataFrame not Pivot Table
