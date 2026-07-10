@@ -37,7 +37,12 @@ while True:
         #DataFrame not Pivot Table
         df_region_interval = pivoted_region.loc[datetime.date(year, 1, 1):datetime.date(year, 12, 31)] 
         avg_day_in_region_in_interval = df_region_interval.aggregate("mean", axis=0) #TRY AXIS 1 ALSO FOR DIFFERENT METRIC
-        plots_list.append(avg_day_in_region_in_interval)
+        mean_of_day = df_region_interval.aggregate("mean", axis=1)
+        normalized_day = []
+        for i, j in zip(avg_day_in_region_in_interval, mean_of_day):
+            normalized_day.append(i/j)
+        plots_list.append(normalized_day)
+        
                 
 
         if input("Do you want to plot?(Yes/No)").strip().lower() == "yes":
@@ -61,9 +66,10 @@ for plot in plots_list:
 for rgn, yr in zip(region_input_list, year_input_list):
     labels.append(f"Region: {rgn}, Year: {yr}")    
 
-plt.title("Average Day of given years in given regions")
+plt.title("Normalized Day")
+plt.plot(ticks, [1 for i in range(24)], linestyle="dashed", color="red")
 plt.xlabel("Hour of the day (24H Format)")
-plt.ylabel("Average Electric Load in MW")
+plt.ylabel("Normalized Electric Load in MW")
 plt.legend(labels=labels)
 
 plt.show()
