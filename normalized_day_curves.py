@@ -35,13 +35,13 @@ def normalized_day_curves(region_list: list, year_list: list):
             pivoted_region = pd.pivot_table(df, index=["Dates"], columns="Time", values=region)
 
             #DataFrame not Pivot Table
-            df_region_interval = pivoted_region.loc[datetime.date(year, 1, 1):datetime.date(year, 12, 31)] 
+            df_region_interval = pivoted_region.loc[datetime.date(year, 1, 1):datetime.date(year, 12, 31)]
             mean_of_day = df_region_interval.mean(axis=1)                 # 365 daily means
             normalized_days  = df_region_interval.div(mean_of_day, axis=0)     # each day ÷ its OWN mean
             normalized_day   = normalized_days.mean(axis=0)                    # then average the shapes
 
             assert np.allclose(normalized_days.mean(axis=1), 1.0), "normalization invariant broken"
-
+            plots_list.append(normalized_day)
         else:
             print("Enter Data as specified!")
             return None
