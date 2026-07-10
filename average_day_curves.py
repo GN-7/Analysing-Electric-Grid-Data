@@ -58,4 +58,4 @@ def average_day_curves(region_list : list, year_list: list):
     plt.show()
 
 if __name__ == "__main__":
-    average_day_curves(["National", "National", "National, National", "National"], [2019,2020, 2021, 2022, 2023])
+    average_day_curves(["National", "National", "National", "National", "National"], [2019,2020, 2021, 2022, 2023])
