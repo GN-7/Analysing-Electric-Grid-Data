@@ -51,6 +51,6 @@ Let's find out what an **Average Day** in the **West** looked like back in **202
      ![Normalized Average Curve](assets/figure_5.png)
 
    ### Inferences
-    - There is an increase of 5-8% from daily mean during peak hour
-    - This falls to a net 2% above the average itself. Meaning, the demand declines by about 3-6%
-    - The evening spike again raises demand upto ~5% higher than the average.
+    - There is an increase of 7-9% from daily mean during peak hour
+    - This falls to a net 2% above the average itself. Meaning, the demand declines by about 3-6% (NEEDS VERIFICATION)
+    - The evening spike again raises demand upto ~5% higher than the average. (NEEDS VERIFICATION)
