@@ -18,5 +18,7 @@ Let's find out what an **Average Day** in the **West** looked like back in **202
 
  - Now, we take an average, but column-wise. This way we can get the average load at each time of the day.
    24 values, each corresponding to an hour of the day.
-   
 ![Figure of average data](/assets/figure_2.png)
+
+ - Plotting it using MatPlotLib, we get:
+   ![Plot of the above values](/assets/figure_3.png)
