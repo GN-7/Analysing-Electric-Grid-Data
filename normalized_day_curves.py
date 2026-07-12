@@ -52,12 +52,14 @@ def normalized_day_curves(region_list: list, year_list: list):
     yticks = np.linspace(0.85, 1.15, 15)
 
     #----------THE ACTUAL PLOTS------------
-    for plot in plots_list:
+    for year, plot in zip(year_list ,plots_list, strict=True):
         plt.plot(ticks, plot)
+        print(f"Year: {year}, Time of Max Load: {plot.idxmax()}, Max Load: {plot.max().round(2)}")
 
     #---------PLOT CUSTOMIZATION------------------
     for rgn, yr in zip(region_list, year_list):
-        labels.append(f"Region: {rgn}, Year: {yr}")    
+        labels.append(f"Region: {rgn}, Year: {yr}")   
+ 
 
     plt.title("Normalized Day")
     plt.plot(ticks, [1 for i in range(24)], linestyle="dashed", color="red")
