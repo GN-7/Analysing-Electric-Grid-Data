@@ -7,7 +7,13 @@ The results of the analysis are presented below.
 
 First, let's define the term **Average Day**: An average day is calculated across region and time interval.
 We have 24 datapoints for each day but averaging them would give us a single average load value for the day.
-That value is meaningless if we want to study the pattern of consumption of electricity in a day.
+That value is meaningless if we want to study the pattern of consumption of electricity throughout the day.
+An **Average Day** load curve of an year, is the curve obtained after following this process:
+
+ - For each hour of the day, find the mean of the 365 entries associated with it.
+ - Ex: The average of 00:00 AM from 1-1-2019 to 31-12-2019
+ - By doing so for each hour of the day, we get 24 values.
+ - The curve obtained by plotting these, is called an **Average Day** load curve.
 So, to find what a typical day looks like, I used the following method.
 
 Let's find out what an **Average Day** in the **West** looked like back in **2023**:
