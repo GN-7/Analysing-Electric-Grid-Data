@@ -35,3 +35,18 @@ Let's find out what an **Average Day** in the **West** looked like back in **202
     - The peak hours of the day are 10AM - 12PM consistently.
     - After 12PM, heading into the afternoon, a decline in the load can be observed.
     - Later in the evening, it spikes up and settles down at a low by the end of the night.
+  
+   ### Normalization(Ratio-to-Mean)
+   - To find %age increase or decrease during demand spikes or crashes cannot be done solely based on the above curve.
+   - Thus, we normalize the data. Normalization is just basic division and average
+   - From the above figure, we have 24 values corresponding to the **Average Day**.
+   - So, we average those 24 values to get a value corresponding to each year's **Average Day** curve.
+   - Now, to find the deviation, we simply subtract each load value in the load curve from it's average.
+   - For %age deviation, divide the deviations by the average and multiply by 100.
+   - This results in the following curve:
+     ![Normalized Average Curve](/assets/figure_5.png)
+
+   ### Inferences
+    - There is an increase of 5-8% from daily mean during peak hour
+    - This falls to a net 2% above the average itself. Meaning, the demand declines by about 3-6%
+    - The evening spike again raises demand upto ~5% higher than the average.
