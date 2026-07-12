@@ -49,6 +49,7 @@ def normalized_day_curves(region_list: list, year_list: list):
 
     #---------PLOTTING---------------
     ticks = pd.date_range("01-01-2019", "01-02-2019", freq="h", inclusive="left").hour.astype(str)
+    yticks = np.linspace(0.85, 1.15, 15)
 
     #----------THE ACTUAL PLOTS------------
     for plot in plots_list:
@@ -62,6 +63,7 @@ def normalized_day_curves(region_list: list, year_list: list):
     plt.plot(ticks, [1 for i in range(24)], linestyle="dashed", color="red")
     plt.xlabel("Hour of the day (24H Format)")
     plt.ylabel("Normalized Electric Load in MW")
+    plt.yticks(yticks)
     plt.legend(labels=labels)
 
     plt.show()
