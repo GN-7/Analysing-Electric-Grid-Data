@@ -8,16 +8,17 @@ base_dir = Path(__file__).parent
 df = pd.read_excel(f"{base_dir}/MainData.xlsx")
 
 
-#-----------------SEPERATING DATE AND TIME FROM TIMESTAMP FOR EFFECTIVE SORTING-----------------------
 
-df['Dates'] = pd.to_datetime(df['datetime']).dt.date
-df['Time'] = pd.to_datetime(df['datetime']).dt.time
-ticks = pd.date_range("01-01-2019", "16-03-2019", freq="h", inclusive="left").hour.astype(str)
+daily_mean = df.set_index("datetime")["National"].resample("D").mean()
 
+monthly_mean = daily_mean.resample("MS").mean()
 
-pivoted_region = pd.pivot_table(df, index=["Dates"], columns="Time", values="National")
+drop_percent = ((monthly_mean['2019'].values - monthly_mean["2020"].values)/monthly_mean['2019'])*100
 
-#DataFrame not Pivot Table
-'''df_national_2019 = pivoted_region.loc[datetime.date(2019, 1, 1):datetime.date(2019, 3, 15)] 
-df_national_2020 = pivoted_region.loc[datetime.date(2020, 1, 1):datetime.date(2020, 3, 15)]'''
+print(monthly_mean["2019"][0:3])
+print(monthly_mean["2020"][0:3])
+plt.plot([i + 1 for i in range(12)], monthly_mean[0:12], marker="o")
+plt.plot([i + 1 for i in range(12)], monthly_mean[12:24], marker="o")
+plt.plot([i + 1 for i in range(12)], monthly_mean[0:12].values * 1.00458)
+plt.xticks([i + 1 for i in range(12)])
 plt.show()
