@@ -44,11 +44,12 @@ def average_day_curves(region_list : list, year_list: list):
     ticks = pd.date_range("01-01-2019", "01-02-2019", freq="h", inclusive="left").hour.astype(str)
 
     #----------THE ACTUAL PLOTS------------
-    for plot in plots_list:
+    for year, plot in zip(year_list ,plots_list, strict=True):
         plt.plot(ticks, plot)
+        print(f"Year: {year}, Time of Max Load: {plot.idxmax()}, Max Load: {plot.max().round(2)}")
 
     #---------PLOT CUSTOMIZATION------------------
-    for rgn, yr in zip(region_list, year_list):
+    for rgn, yr in zip(region_list, year_list, strict=True):
         labels.append(f"Region: {rgn}, Year: {yr}")    
 
     plt.title("Average Day of given years in given regions")

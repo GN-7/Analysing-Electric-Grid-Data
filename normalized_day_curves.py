@@ -57,7 +57,7 @@ def normalized_day_curves(region_list: list, year_list: list):
         print(f"Year: {year}, Time of Max Load: {plot.idxmax()}, Max Load: {plot.max().round(2)}")
 
     #---------PLOT CUSTOMIZATION------------------
-    for rgn, yr in zip(region_list, year_list):
+    for rgn, yr in zip(region_list, year_list, strict=True):
         labels.append(f"Region: {rgn}, Year: {yr}")   
  
 
