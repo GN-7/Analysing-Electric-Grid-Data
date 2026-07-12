@@ -22,3 +22,6 @@ Let's find out what an **Average Day** in the **West** looked like back in **202
 
  - Plotting it using MatPlotLib, we get:
    ![Plot of the above values](/assets/figure_3.png)
+
+ - Similarly, plotting the evolution of the **Average Day** Load curves from 2019 to 2023 for the whole country looks like this:
+   ![Plot of load curves](/assets/figure_4.png)
