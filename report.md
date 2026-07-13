@@ -46,7 +46,7 @@ Let's find out what an **Average Day** in the **West** looked like back in **202
    - To find %age increase or decrease during demand spikes or crashes cannot be done solely based on the above curve.
    - Thus, we normalize the data. Normalization is just basic division and average
    - From the above figure, we have 24 values corresponding to the **Average Day**.
-   - (each day / mean of day) -> then mean
+   - (load of each hour / mean of day) -> then mean
    - This results in the following curve:
      ![Normalized Average Curve](assets/figure_5.png)
 
