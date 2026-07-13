@@ -15,7 +15,6 @@ df['Time'] = pd.to_datetime(df['datetime']).dt.time
 #------------MAIN LOOP FOR AVERAGES GRAPHS---------------------
 def average_day_curves(region_list : list, year_list: list):
     plots_list = []
-    labels = []
     if not isinstance(region_list, list):
         raise TypeError
     if not isinstance(year_list, list):
@@ -44,18 +43,17 @@ def average_day_curves(region_list : list, year_list: list):
     ticks = pd.date_range("01-01-2019", "01-02-2019", freq="h", inclusive="left").hour.astype(str)
 
     #----------THE ACTUAL PLOTS------------
+    fig, ax = plt.subplots(figsize=(8, 4.5), layout='constrained')
     for year, plot in zip(year_list ,plots_list, strict=True):
-        plt.plot(ticks, plot)
+        ax.plot(ticks, plot)
+        ax.text(23.2, plot.iloc[-1], year, fontweight="bold")
         print(f"Year: {year}, Time of Max Load: {plot.idxmax()}, Max Load: {plot.max().round(2)}")
 
-    #---------PLOT CUSTOMIZATION------------------
-    for rgn, yr in zip(region_list, year_list, strict=True):
-        labels.append(f"Region: {rgn}, Year: {yr}")    
+    #---------PLOT CUSTOMIZATION------------------    
 
     plt.title("Average Day of given years in given regions")
     plt.xlabel("Hour of the day (24H Format)")
     plt.ylabel("Average Electric Load in MW")
-    plt.legend(labels=labels)
     plt.show()
 
 if __name__ == "__main__":

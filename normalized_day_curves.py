@@ -20,7 +20,6 @@ df['Time'] = pd.to_datetime(df['datetime']).dt.time
 def normalized_day_curves(region_list: list, year_list: list):
 
     plots_list = []
-    labels = []
     if not isinstance(region_list, list):
         raise TypeError
     if not isinstance(year_list, list):
@@ -52,21 +51,17 @@ def normalized_day_curves(region_list: list, year_list: list):
     yticks = np.linspace(0.85, 1.15, 15)
 
     #----------THE ACTUAL PLOTS------------
+    fig, ax = plt.subplots(figsize=(8, 4.5), layout='constrained')
     for year, plot in zip(year_list ,plots_list, strict=True):
-        plt.plot(ticks, plot)
-        print(f"Year: {year}, Time of Max Load: {plot.idxmax()}, Max Load: {plot.max().round(2)}")
+        ax.plot(ticks, plot)
+        ax.text(23.2, plot.iloc[-1], year, fontweight="bold")
 
     #---------PLOT CUSTOMIZATION------------------
-    for rgn, yr in zip(region_list, year_list, strict=True):
-        labels.append(f"Region: {rgn}, Year: {yr}")   
- 
-
     plt.title("Normalized Day")
     plt.plot(ticks, [1 for i in range(24)], linestyle="dashed", color="red")
     plt.xlabel("Hour of the day (24H Format)")
     plt.ylabel("Normalized Electric Load in MW")
     plt.yticks(yticks)
-    plt.legend(labels=labels)
 
     plt.show()
 
