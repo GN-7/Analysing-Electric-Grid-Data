@@ -49,19 +49,21 @@ def normalized_day_curves(region_list: list, year_list: list):
     #---------PLOTTING---------------
     ticks = pd.date_range("01-01-2019", "01-02-2019", freq="h", inclusive="left").hour.astype(str)
     yticks = np.linspace(0.85, 1.15, 15)
-
+    colors = {2019: "Blue", 2020: "Orange", 2021: "Green", 2022: "Red", 2023: "Violet"}
     #----------THE ACTUAL PLOTS------------
     fig, ax = plt.subplots(figsize=(8, 4.5), layout='constrained')
     for year, plot in zip(year_list ,plots_list, strict=True):
-        ax.plot(ticks, plot)
-        ax.text(23.2, plot.iloc[-1], year, fontweight="bold")
+        ax.plot(ticks, plot, color=colors[year])
+        ax.text(23.2, plot.iloc[-1], year, fontweight="bold", color=colors[year])
 
     #---------PLOT CUSTOMIZATION------------------
     plt.title("Normalized Day")
     plt.plot(ticks, [1 for i in range(24)], linestyle="dashed", color="red")
-    plt.xlabel("Hour of the day (24H Format)")
-    plt.ylabel("Normalized Electric Load in MW")
-    plt.yticks(yticks)
+    ax.set_title("India's average day Normalized")
+    ax.set_xlabel('Hour of day')
+    ax.set_ylabel('Deviation from mean')
+    ax.set_xlim(0, 24.6)
+    ax.set_xticks([0, 6, 12, 18, 23])
 
     plt.show()
 

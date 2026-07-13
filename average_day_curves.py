@@ -41,19 +41,22 @@ def average_day_curves(region_list : list, year_list: list):
 
     #---------PLOTTING---------------
     ticks = pd.date_range("01-01-2019", "01-02-2019", freq="h", inclusive="left").hour.astype(str)
-
+    colors = {2019: "Blue", 2020: "Orange", 2021: "Green", 2022: "Red", 2023: "Violet"}
     #----------THE ACTUAL PLOTS------------
     fig, ax = plt.subplots(figsize=(8, 4.5), layout='constrained')
     for year, plot in zip(year_list ,plots_list, strict=True):
-        ax.plot(ticks, plot)
-        ax.text(23.2, plot.iloc[-1], year, fontweight="bold")
+        ax.plot(ticks, plot, color=colors[year])
+        ax.text(23.2, plot.iloc[-1], year, fontweight="bold", color=colors[year])
         print(f"Year: {year}, Time of Max Load: {plot.idxmax()}, Max Load: {plot.max().round(2)}")
 
     #---------PLOT CUSTOMIZATION------------------    
 
     plt.title("Average Day of given years in given regions")
-    plt.xlabel("Hour of the day (24H Format)")
-    plt.ylabel("Average Electric Load in MW")
+    ax.set_title("India's average day keeps similar shape while demand grows")
+    ax.set_xlabel('Hour of day')
+    ax.set_ylabel('Average Demand (GW)')
+    ax.set_xlim(0, 25.6)
+    ax.set_xticks([0, 6, 12, 18, 23])
     plt.show()
 
 if __name__ == "__main__":
