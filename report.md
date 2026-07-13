@@ -5,6 +5,8 @@
 With the help of Python libraries like Pandas and MatPlotLib, the data with ~47000 rows and 7 columns was analyzed.
 The results of the analysis are presented below.
 
+> **NOTE**: The graphs and data present below are reproducible.
+
 First, let's define the term **Average Day**: An average day is calculated across region and time interval.
 We have 24 datapoints for each day but averaging them would give us a single average load value for the day.
 That value is meaningless if we want to study the pattern of consumption of electricity throughout the day.
@@ -61,5 +63,5 @@ Let's find out what an **Average Day** in the **West** looked like back in **202
 
    ### Inferences
     - There is an increase of 7-9% from daily mean during peak hour
-    - This falls to a net 2% above the average itself. Meaning, the demand declines by about 3-6% (NEEDS VERIFICATION)
-    - The evening spike again raises demand upto ~5% higher than the average. (NEEDS VERIFICATION)
+    - This falls to a net ~1.5% above the average itself. Meaning, the demand declines by about ~6-8% from the morning
+    - The evening spike again raises demand upto ~3-6% higher than the average.
