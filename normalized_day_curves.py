@@ -51,10 +51,20 @@ def normalized_day_curves(region_list: list, year_list: list):
     colors = {2019: "Blue", 2020: "Orange", 2021: "Green", 2022: "Red", 2023: "Violet"}
     #----------THE ACTUAL PLOTS------------
     fig, ax = plt.subplots(figsize=(8, 4.5), layout='constrained')
+
     for year, plot in zip(year_list ,plots_list, strict=True):
+        times = [plot.loc[datetime.time(15, 0, 0) : datetime.time(18, 0, 0)],
+             plot.loc[datetime.time(18, 0, 0) : datetime.time(21, 0, 0)],
+             plot.loc[datetime.time(8, 0, 0) : datetime.time(13, 0, 0)],
+             ]
         ax.plot(ticks, plot, color=colors[year])
         ax.text(23.2, plot.iloc[-1], year, fontweight="bold", color=colors[year])
-
+        print(f"Year: {year}, Time of Max Load: {plot.idxmax()}, Max Load: +{((plot.max()- 1)*100).round(2)}%")
+        print(f"Morning Spike Time: {times[2].idxmax()}, Morning Spike load: +{((times[2].max()-1)*100).round(2)}%")
+        print(f"Afternoon Dip Time: {times[0].idxmin()}, Afternoon Dip load: +{((times[0].min()-1)*100).round(2)}%")
+        print(f"Decline from Morning Spike: +{(((times[2].max()-1)*100) - ((times[0].min()-1)*100)).round(2)}%")
+        print(f"Evening spike time: {times[1].idxmax()}, Evening spike load: +{((times[1].max()-1)*100).round(2)}%")
+        print("-"*50)
     #---------PLOT CUSTOMIZATION------------------
     plt.title("Normalized Day")
     plt.plot(ticks, [1 for i in range(24)], linestyle="dashed", color="red")

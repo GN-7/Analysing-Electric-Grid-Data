@@ -41,7 +41,7 @@ def average_day_curves(region_list : list, year_list: list):
 
     #---------PLOTTING---------------
     ticks = pd.date_range("01-01-2019", "01-02-2019", freq="h", inclusive="left").hour.astype(str)
-    colors = {2019: "Blue", 2020: "Orange", 2021: "Green", 2022: "Red", 2023: "Violet"}
+    colors = {2019: "Blue", 2020: "Orange", 2021: "Green", 2022: "Maroon", 2023: "Purple"}
     #----------THE ACTUAL PLOTS------------
     fig, ax = plt.subplots(figsize=(8, 4.5), layout='constrained')
     for year, plot in zip(year_list ,plots_list, strict=True):
