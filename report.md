@@ -1,6 +1,6 @@
 # Analysing Indian Electrical Load Data
 
-### Hourly Electrical Load from 2019 to 2024
+## Hourly Electrical Load from 2019 to 2024
 
 With the help of Python libraries like Pandas and MatPlotLib, the data with ~47000 rows and 7 columns was analyzed.
 The results of the analysis are presented below.
@@ -42,13 +42,22 @@ Let's find out what an **Average Day** in the **West** looked like back in **202
     - After 12PM, heading into the afternoon, a decline in the load can be observed.
     - Later in the evening, it spikes up and settles down at a low by the end of the night.
   
-   ### Normalization(Ratio-to-Mean)
+   ## Normalization(Ratio-to-Mean)
    - To find %age increase or decrease during demand spikes or crashes cannot be done solely based on the above curve.
    - Thus, we normalize the data. Normalization is just basic division and average
-   - From the above figure, we have 24 values corresponding to the **Average Day**.
-   - (load of each hour / mean of day) -> then mean
-   - This results in the following curve:
-     ![Normalized Average Curve](assets/figure_5.png)
+   - Let's normalize the data for the year **2019**, **National** region.
+     ![2019 National Data](assets/figure_5.png)
+   - Let us average it row-wise to get the average load for each day for the whole year.(Not to be confused with **Average Day**)
+     ![Average](assets/figure_6.png)
+   - From the above figure, we have 365 values corresponding to the average load of each calendar day.
+   - Now, the core normalization logic, we divide each row from the former figure with it's corresponding mean from the latter figure.
+   - It gives us this data:
+     ![DF](assets/figure_7.png)
+
+   - Now, to get the **Normalized Load Curve** for 2019, we average the above data column-wise.
+   ![](assets/figure_8.png)
+   - Plotting these values for all years 2019-2023 results in the following curve:
+     ![Normalized Average Curve](assets/figure_9.png)
 
    ### Inferences
     - There is an increase of 7-9% from daily mean during peak hour
