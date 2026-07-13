@@ -56,7 +56,7 @@ def average_day_curves(region_list : list, year_list: list):
     ax.set_xlabel('Hour of day')
     ax.set_ylabel('Average Demand (GW)')
     ax.set_xlim(0, 25.6)
-    ax.set_xticks([0, 6, 12, 18, 23])
+    ax.set_xticks(ticks)
     plt.show()
 
 if __name__ == "__main__":

@@ -48,7 +48,6 @@ def normalized_day_curves(region_list: list, year_list: list):
 
     #---------PLOTTING---------------
     ticks = pd.date_range("01-01-2019", "01-02-2019", freq="h", inclusive="left").hour.astype(str)
-    yticks = np.linspace(0.85, 1.15, 15)
     colors = {2019: "Blue", 2020: "Orange", 2021: "Green", 2022: "Red", 2023: "Violet"}
     #----------THE ACTUAL PLOTS------------
     fig, ax = plt.subplots(figsize=(8, 4.5), layout='constrained')
@@ -63,7 +62,7 @@ def normalized_day_curves(region_list: list, year_list: list):
     ax.set_xlabel('Hour of day')
     ax.set_ylabel('Deviation from mean')
     ax.set_xlim(0, 24.6)
-    ax.set_xticks([0, 6, 12, 18, 23])
+    ax.set_xticks(ticks)
 
     plt.show()
 
