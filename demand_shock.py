@@ -7,18 +7,20 @@ import numpy as np
 base_dir = Path(__file__).parent
 df = pd.read_excel(f"{base_dir}/MainData.xlsx")
 
+df = df.set_index("datetime")
+df_national = df[["National"]]
 
+df_national_2019_pre_lockdown = df_national.loc["2019-1-1":"2019-3-15"]
+df_national_2020_pre_lockdown = df_national.loc["2020-1-1":"2020-3-15"]
 
-daily_mean = df.set_index("datetime")["National"].resample("D").mean()
+df_pre_lockdown = pd.concat([df_national_2019_pre_lockdown, df_national_2020_pre_lockdown])
+#ALIGNING BY ISO WEEK AND WEEKDAY
+df_pre_lockdown["ISO_Week"] = df_pre_lockdown.index.isocalendar().week
+df_pre_lockdown["ISO_Weekday"] = df_pre_lockdown.index.isocalendar().day
+df_pre_lockdown["Hour"] = df_pre_lockdown.index.hour
 
-monthly_mean = daily_mean.resample("MS").mean()
+df_pre_lockdown["Year"] = df_pre_lockdown.index.year
+side = df_pre_lockdown.pivot_table(index=["ISO_Week", "ISO_Weekday", "Hour"], columns="Year", values="National")
+paired = side.dropna()
 
-drop_percent = ((monthly_mean['2019'].values - monthly_mean["2020"].values)/monthly_mean['2019'])*100
-
-print(monthly_mean["2019"][0:3])
-print(monthly_mean["2020"][0:3])
-plt.plot([i + 1 for i in range(12)], monthly_mean[0:12], marker="o")
-plt.plot([i + 1 for i in range(12)], monthly_mean[12:24], marker="o")
-plt.plot([i + 1 for i in range(12)], monthly_mean[0:12].values * 1.00458)
-plt.xticks([i + 1 for i in range(12)])
-plt.show()
+growth_factor = paired[2020].mean() / paired[2019].mean() # ~1.02944
