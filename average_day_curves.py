@@ -15,10 +15,7 @@ def average_day_curves(df, region_list : list, year_list: list):
     
     for region, year in zip(region_list, year_list, strict=True):
 
-        if year == 2024:
-            print("WARNING! DATA FOR 2024 AVAILABLE ONLY FROM 1-1-24 TO 30-4-2024")
-
-        if year in [2019, 2020, 2021, 2022, 2023, 2024] and region in ["National", "North", "East", "West", "South", "North East"]:
+        if year in [2019, 2020, 2021, 2022, 2023] and region in ["National", "North", "East", "West", "South", "North East"]:
             #----------------------CORE LOGIC------------------------
             pivoted_region = pd.pivot_table(df, index=["Dates"], columns="Time", values=region)
 
