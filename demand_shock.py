@@ -116,5 +116,8 @@ def east_cyclone_demand_shock():
     plt.annotate("Cyclone Amphan", xy=(y.idxmin(),y.min()), xytext=(40,20), **params)
     plt.show()
 
-lockdown_demand_shock(0)
-lockdown_demand_shock(1)
+if __name__ == "__main__":
+    west_cyclone_demand_shock()
+    east_cyclone_demand_shock()
+    lockdown_demand_shock(0)
+    lockdown_demand_shock(1)
