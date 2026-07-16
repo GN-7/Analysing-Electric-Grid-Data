@@ -48,7 +48,8 @@ def normalized_day_curves(region_list: list, year_list: list):
 
     #---------PLOTTING---------------
     ticks = pd.date_range("01-01-2019", "01-02-2019", freq="h", inclusive="left").hour.astype(str)
-    colors = {2019: "Blue", 2020: "Orange", 2021: "Green", 2022: "Red", 2023: "Violet"}
+    colors = {2019: "#34558B", 2020: "#BA7517", 2021: "#1D5C4C", 2022: "#93373F", 2023: "#6E3D63"}
+    #----------THE ACTUAL PLOTS------------
     #----------THE ACTUAL PLOTS------------
     fig, ax = plt.subplots(figsize=(8, 4.5), layout='constrained')
 
@@ -67,13 +68,13 @@ def normalized_day_curves(region_list: list, year_list: list):
         print("-"*50)
     #---------PLOT CUSTOMIZATION------------------
     plt.title("Normalized Day")
-    plt.plot(ticks, [1 for i in range(24)], linestyle="dashed", color="red")
-    ax.set_title("India's average day Normalized")
-    ax.set_xlabel('Hour of day')
-    ax.set_ylabel('Deviation from mean')
+    plt.plot(ticks, [1 for i in range(24)], linestyle="dashed", color="gray")
+    ax.set_title("India's Average Day, Normalized", fontweight="bold")
+    ax.set_xlabel('Hour of day', fontweight="bold")
+    ax.set_ylabel('Deviation from mean', fontweight="bold")
     ax.set_xlim(0, 24.6)
     ax.set_xticks(ticks)
-
+    ax.grid(axis="y", alpha=0.25, linewidth=0.6, linestyle="dashed")
     plt.show()
 
 if __name__ == "__main__":
