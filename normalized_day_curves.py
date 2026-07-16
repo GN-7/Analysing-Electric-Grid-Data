@@ -57,7 +57,7 @@ def normalized_day_curves(df):
     ax.set_xticks(ticks)
     ax.grid(axis="y", alpha=0.25, linewidth=0.6, linestyle="dashed")
     plt.legend()
-    plt.show()
+    plt.savefig("assets/normalized_day_curves.png")
 
 if __name__ == "__main__":
     base_dir = Path(__file__).parent

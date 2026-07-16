@@ -36,7 +36,7 @@ Let's find out what an **Average Day** in the **West** looked like back in **202
    ## Load Curves of the Average Day(2019-2023)
 
    Plotting the evolution of the **Average Day** Load curves from 2019 to 2023 for the whole country looks like this:
-   ![Plot of load curves](assets/figure_4.png)
+   ![Plot of load curves](assets/average_day_curves.png)
 
    ### Inferences drawn from the load curves
 
@@ -61,7 +61,7 @@ Let's find out what an **Average Day** in the **West** looked like back in **202
    - Now, to get the **Normalized Load Curve** for 2019, we average the above data column-wise.
    ![](assets/figure_8.png)
    - Plotting these values for all years 2019-2023 results in the following curve:
-     ![Normalized Average Curve](assets/figure_9.png)
+     ![Normalized Average Curve](assets/normalized_day_curves.png)
 
    ### Inferences
     | Year | Morning Spike | Mid-Day dip from peak | Evening Spike |
