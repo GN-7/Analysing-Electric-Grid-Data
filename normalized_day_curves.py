@@ -14,7 +14,7 @@ def normalized_day_curves(df, region_list: list, year_list: list):
         raise TypeError
     if not isinstance(year_list, list):
         raise TypeError
-    for region, year in zip(region_list, year_list):
+    for region, year in zip(region_list, year_list, strict=True):
 
         if year == 2024:
             print("WARNING! DATA FOR 2024 AVAILABLE ONLY FROM 1-1-24 TO 30-4-2024")
