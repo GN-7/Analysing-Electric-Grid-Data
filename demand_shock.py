@@ -43,7 +43,7 @@ def lockdown_demand_shock():
         "textcoords":"offset points",
         "arrowprops":dict(arrowstyle="->")
     }
-    plt.plot(pd.date_range("2020-01-01", "2020-12-31", freq="D").drop(["2020-02-29"]), y, color="darkblue")
+    plt.plot(pd.date_range("2020-01-01", "2020-12-31", freq="D").drop(["2020-02-29"]), y, color="#1d5c4c")
     plt.plot(pd.date_range("2020-01-01", "2020-12-31", freq="D").drop(["2020-02-29"]), day_means_2020, color="lightgrey", alpha=0.5, linewidth=0.5)
     plt.plot(pd.date_range("2020-01-01", "2020-12-31", freq="D").drop(["2020-02-29"]), day_means_expected.rolling(7, center=True).median(), linestyle="dashed", color="grey")
     plt.xticks(pd.date_range("2020-01-01", "2020-12-31", freq="MS"), rotation=45)
