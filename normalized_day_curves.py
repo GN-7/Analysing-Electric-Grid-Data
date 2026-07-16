@@ -3,21 +3,11 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 import datetime
 import numpy as np
-#------------ACCESSING THE RAW DATA--------------------------
-base_dir = Path(__file__).parent
-df = pd.read_excel(f"{base_dir}/MainData.xlsx")
-
-
-#-----------------SEPERATING DATE AND TIME FROM TIMESTAMP FOR EFFECTIVE SORTING-----------------------
-
-df['Dates'] = pd.to_datetime(df['datetime']).dt.date
-df['Time'] = pd.to_datetime(df['datetime']).dt.time
-
-#----------INITIALIZATION OF LISTS-------------
-
 
 #------------MAIN LOOP FOR AVERAGES GRAPHS---------------------
-def normalized_day_curves(region_list: list, year_list: list):
+def normalized_day_curves(df, region_list: list, year_list: list):
+    df['Dates'] = pd.to_datetime(df['datetime']).dt.date
+    df['Time'] = pd.to_datetime(df['datetime']).dt.time
 
     plots_list = []
     if not isinstance(region_list, list):
@@ -81,5 +71,6 @@ def normalized_day_curves(region_list: list, year_list: list):
     plt.show()
 
 if __name__ == "__main__":
-    
-    normalized_day_curves(["National", "National", "National", "National", "National"], [2019, 2020, 2021, 2022, 2023])
+    base_dir = Path(__file__).parent
+    df = pd.read_excel(f"{base_dir}/MainData.xlsx")
+    normalized_day_curves(df,["National", "National", "National", "National", "National"], [2019, 2020, 2021, 2022, 2023])

@@ -2,18 +2,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from pathlib import Path
 import datetime
-#------------ACCESSING THE RAW DATA--------------------------
-base_dir = Path(__file__).parent
-df = pd.read_excel(f"{base_dir}/MainData.xlsx")
-
-
-#-----------------SEPERATING DATE AND TIME FROM TIMESTAMP FOR EFFECTIVE SORTING-----------------------
-
-df['Dates'] = pd.to_datetime(df['datetime']).dt.date
-df['Time'] = pd.to_datetime(df['datetime']).dt.time
 
 #------------MAIN LOOP FOR AVERAGES GRAPHS---------------------
-def average_day_curves(region_list : list, year_list: list):
+def average_day_curves(df, region_list : list, year_list: list):
+    df['Dates'] = pd.to_datetime(df['datetime']).dt.date
+    df['Time'] = pd.to_datetime(df['datetime']).dt.time
     plots_list = []
     if not isinstance(region_list, list):
         raise TypeError
@@ -60,4 +53,6 @@ def average_day_curves(region_list : list, year_list: list):
     plt.show()
 
 if __name__ == "__main__":
-    average_day_curves(["National", "National", "National", "National", "National"], [2019,2020, 2021, 2022, 2023])
+    base_dir = Path(__file__).parent
+    df = pd.read_excel(f"{base_dir}/MainData.xlsx")
+    average_day_curves(df, ["National", "National", "National", "National", "National"], [2019,2020, 2021, 2022, 2023])

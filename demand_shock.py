@@ -4,16 +4,14 @@ from pathlib import Path
 import datetime
 import numpy as np
 #------------ACCESSING THE RAW DATA--------------------------
-base_dir = Path(__file__).parent
-df = pd.read_excel(f"{base_dir}/MainData.xlsx")
-df = df.set_index("datetime")
-df['Dates'] = df.index.date
-df['Time'] = df.index.time
-df_national = df[["National"]]
 
 #------------------MAIN FUNCTIONS------------------------------
 
-def lockdown_demand_shock(arg):
+def lockdown_demand_shock(df, arg):
+    df = df.set_index("datetime")
+    df['Dates'] = df.index.date
+    df['Time'] = df.index.time
+    df_national = df[["National"]]
     df_national_2019_pre_lockdown = df_national.loc["2019-1-1":"2019-3-15"]
     df_national_2020_pre_lockdown = df_national.loc["2020-1-1":"2020-3-15"]
 
@@ -77,7 +75,10 @@ def lockdown_demand_shock(arg):
 
     else: print("Enter 0 or 1\n0 for deviation curve\n1 for load curve")
 
-def west_cyclone_demand_shock():
+def west_cyclone_demand_shock(df):
+    df = df.set_index("datetime")
+    df['Dates'] = df.index.date
+    df['Time'] = df.index.time
     west_pivoted = pd.pivot_table(df, index=["Dates"], columns="Time", values="West")
     west_2020 = west_pivoted.loc[datetime.date(2020, 1, 1):datetime.date(2020, 12, 31)]
     west_daily_means = west_2020.aggregate("mean", axis=1)
@@ -96,7 +97,10 @@ def west_cyclone_demand_shock():
     plt.annotate("Cyclone Nisarga", xy=(y.loc[datetime.date(2020, 6, 1):datetime.date(2020, 7, 1)].idxmin(),y.loc[datetime.date(2020, 6, 1):datetime.date(2020, 7, 1)].min()), xytext=(40,-20), **params)
     plt.show()
 
-def east_cyclone_demand_shock():
+def east_cyclone_demand_shock(df):
+    df = df.set_index("datetime")
+    df['Dates'] = df.index.date
+    df['Time'] = df.index.time
     east_pivoted = pd.pivot_table(df, index=["Dates"], columns="Time", values="East")
     east_2020 = east_pivoted.loc[datetime.date(2020, 1, 1):datetime.date(2020, 12, 31)]
     east_daily_means = east_2020.aggregate("mean", axis=1)
@@ -116,7 +120,10 @@ def east_cyclone_demand_shock():
     plt.show()
 
 if __name__ == "__main__":
-    west_cyclone_demand_shock()
-    east_cyclone_demand_shock()
-    lockdown_demand_shock(0)
-    lockdown_demand_shock(1)
+    base_dir = Path(__file__).parent
+    df = pd.read_excel(f"{base_dir}/MainData.xlsx")
+
+    west_cyclone_demand_shock(df)
+    east_cyclone_demand_shock(df)
+    lockdown_demand_shock(df,0)
+    lockdown_demand_shock(df,1)
