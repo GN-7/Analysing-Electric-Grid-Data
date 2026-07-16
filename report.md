@@ -65,3 +65,11 @@ Let's find out what an **Average Day** in the **West** looked like back in **202
     - There is an increase of 7-9% from daily mean during peak hour
     - This falls to a net ~1.5% above the average itself. Meaning, the demand declines by about ~6-8% from the morning
     - The evening spike again raises demand upto ~3-6% higher than the average.
+  
+   ## 2020: An Outlier
+    - By all means, 2020 was an outlier. The biggest reason being the COVID-19 pandemic.
+    - Also, Cyclones Nisarga and Amphan, disturbed the West and East regions respectively.
+    - Let us look at their effects on electrical load.
+  
+   ### The COVID-19 Pandemic
+    - 
