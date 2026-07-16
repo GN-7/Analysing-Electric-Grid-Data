@@ -49,7 +49,7 @@ def lockdown_demand_shock(arg):
     if arg == 0:
         min = smoothened_deviation.min()
         min_date = smoothened_deviation.idxmin()      
-        duration = (smoothened_deviation.loc[datetime.date(2020, 3, 25): datetime.date(2020, 9, 1)] < 5).sum()
+        duration = (smoothened_deviation.loc[datetime.date(2020, 3, 25): datetime.date(2020, 9, 1)] < -5).sum()
         print(f"The demand crash lasted for {duration} days. The depth was {min.round(2)}% which occured on {str(min_date)}")
         plt.plot(pd.date_range("2020-01-01", "2020-12-31", freq="D").drop(["2020-02-29"]), deviation, color="gray", alpha=0.5, linewidth=0.7)
         plt.plot(pd.date_range("2020-01-01", "2020-12-31", freq="D").drop(["2020-02-29"]), smoothened_deviation, color="#BA7517")
