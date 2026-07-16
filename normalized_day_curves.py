@@ -48,7 +48,7 @@ def normalized_day_curves(region_list: list, year_list: list):
 
     #---------PLOTTING---------------
     ticks = pd.date_range("01-01-2019", "01-02-2019", freq="h", inclusive="left").hour.astype(str)
-    colors = {2019: "#34558B", 2020: "#BA7517", 2021: "#1D5C4C", 2022: "#93373F", 2023: "#6E3D63"}
+    alphas = {2019: 0.2, 2020: 0.4, 2021:0.6, 2022: 0.8, 2023: 1}
     #----------THE ACTUAL PLOTS------------
     #----------THE ACTUAL PLOTS------------
     fig, ax = plt.subplots(figsize=(8, 4.5), layout='constrained')
@@ -58,8 +58,7 @@ def normalized_day_curves(region_list: list, year_list: list):
              plot.loc[datetime.time(18, 0, 0) : datetime.time(21, 0, 0)],
              plot.loc[datetime.time(8, 0, 0) : datetime.time(13, 0, 0)],
              ]
-        ax.plot(ticks, plot, color=colors[year])
-        ax.text(23.2, plot.iloc[-1], year, fontweight="bold", color=colors[year])
+        ax.plot(ticks, plot, color="#1d5c4c", label=year, alpha=alphas[year])
 
         print(f"Year: {year}, Time of Max Load: {plot.idxmax()}, Max Load: +{((plot.max()- 1)*100).round(2)}%")
         result = {"Year":year, "Morning Spike": f"+{((times[2].max()-1)*100).round(2)}%", "Mid-Day Drop from Peak": f"+{(((times[2].max()-1)*100) - ((times[0].min()-1)*100)).round(2)}%", "Evening Spike": f"+{((times[1].max()-1)*100).round(2)}%"}
@@ -78,6 +77,7 @@ def normalized_day_curves(region_list: list, year_list: list):
     ax.set_xlim(0, 24.6)
     ax.set_xticks(ticks)
     ax.grid(axis="y", alpha=0.25, linewidth=0.6, linestyle="dashed")
+    plt.legend()
     plt.show()
 
 if __name__ == "__main__":
