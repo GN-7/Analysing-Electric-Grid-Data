@@ -62,9 +62,13 @@ Let's find out what an **Average Day** in the **West** looked like back in **202
      ![Normalized Average Curve](assets/figure_9.png)
 
    ### Inferences
-    - There is an increase of 7-9% from daily mean during peak hour
-    - This falls to a net ~1.5% above the average itself. Meaning, the demand declines by about ~6-8% from the morning
-    - The evening spike again raises demand upto ~3-6% higher than the average.
+    | Year | Morning Spike | Mid-Day dip from peak | Evening Spike |
+    |------|---------------|-----------------------|---------------|
+    | 2019 |      4.18%    |      2.69%            |    6.64%      |
+    | 2020 |      +7.0%    |        +6.51%         |     +5.1%     |
+    | 2021 | +8.16%        |       +7.20%          | +4.99%        |
+    | 2022 | +8.72%        |  +7.05%               | +4.72%        |
+    | 2023 |   +9.37%      |  +8.22%               |  +3.05%       |     
   
    ## 2020: An Outlier
     - By all means, 2020 was an outlier. The biggest reason being the COVID-19 pandemic.
