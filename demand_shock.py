@@ -6,11 +6,12 @@ import numpy as np
 #------------ACCESSING THE RAW DATA--------------------------
 base_dir = Path(__file__).parent
 df = pd.read_excel(f"{base_dir}/MainData.xlsx")
-
 df = df.set_index("datetime")
 df['Dates'] = df.index.date
 df['Time'] = df.index.time
 df_national = df[["National"]]
+
+#------------------MAIN FUNCTIONS------------------------------
 
 def lockdown_demand_shock(arg):
     df_national_2019_pre_lockdown = df_national.loc["2019-1-1":"2019-3-15"]
@@ -75,7 +76,6 @@ def lockdown_demand_shock(arg):
 
     else: print("Enter 0 or 1\n0 for deviation curve\n1 for load curve")
 
-
 def west_cyclone_demand_shock():
     west_pivoted = pd.pivot_table(df, index=["Dates"], columns="Time", values="West")
     west_2020 = west_pivoted.loc[datetime.date(2020, 1, 1):datetime.date(2020, 12, 31)]
@@ -113,5 +113,3 @@ def east_cyclone_demand_shock():
     plt.grid(axis="y", alpha=0.25, linewidth=0.6, linestyle="dashed")
     plt.annotate("Cyclone Amphan", xy=(y.idxmin(),y.min()), xytext=(40,20), **params)
     plt.show()
-
-
