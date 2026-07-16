@@ -12,7 +12,7 @@ df['Dates'] = df.index.date
 df['Time'] = df.index.time
 df_national = df[["National"]]
 
-def demand_shock():
+def lockdown_demand_shock():
     df_national_2019_pre_lockdown = df_national.loc["2019-1-1":"2019-3-15"]
     df_national_2020_pre_lockdown = df_national.loc["2020-1-1":"2020-3-15"]
 
@@ -33,13 +33,54 @@ def demand_shock():
     day_means_2019 = df_national_2019.aggregate("mean", axis=1)
     df_national_2020 = pivoted_national.loc[datetime.date(2020, 1, 1):datetime.date(2020, 12, 31)] 
     day_means_2020 = df_national_2020.aggregate("mean", axis=1)
-    day_means_2020.drop(day_means_2020.index[59], inplace=True)
-
+    day_means_2020 = day_means_2020.drop(datetime.date(2020, 2, 29))
     day_means_expected = day_means_2019* growth_factor
-    plt.plot(range(365), day_means_2019.rolling(7).mean())
-    plt.plot(range(365), day_means_2020.rolling(7).mean())
-    plt.plot(range(365), day_means_expected.rolling(7).mean(), linestyle="dashed")
+    print(f"Minimum Average Load of 2020: {day_means_2020.min()}, Day of Minimum Load: {day_means_2020.idxmin()}")
+
+    plt.plot(pd.date_range("2020-01-01", "2020-12-31", freq="D").drop(["2020-02-29"]), day_means_2020.rolling(7, center=True).median())
+    plt.plot(pd.date_range("2020-01-01", "2020-12-31", freq="D").drop(["2020-02-29"]), day_means_expected.rolling(7, center=True).median())
+    plt.xticks(pd.date_range("2020-01-01", "2020-12-31", freq="MS"), rotation=45)
+    plt.annotate("Lockdown 1", xy=(day_means_2020.idxmin(),day_means_2020.min()), xytext=(40,20), textcoords="offset points", arrowprops=dict(arrowstyle="->"))
     plt.show()
 
-if __name__ == "__main__":
-    demand_shock()
+
+def west_cyclone_demand_shock():
+    west_pivoted = pd.pivot_table(df, index=["Dates"], columns="Time", values="West")
+    west_2020 = west_pivoted.loc[datetime.date(2020, 1, 1):datetime.date(2020, 12, 31)]
+    west_daily_means = west_2020.aggregate("mean", axis=1)
+    y = west_daily_means
+    params = {
+        "textcoords":"offset points",
+        "arrowprops":dict(arrowstyle="->")
+    }
+    plt.plot(pd.date_range("2020-01-01", "2020-12-31", freq="D"), y)
+    plt.xticks(pd.date_range("2020-01-01", "2020-12-31", freq="MS"))
+    plt.title("Demand Shocks In The West")
+    plt.xticks(pd.date_range("2020-01-01", "2020-12-31", freq="MS"), rotation=45)
+    plt.xlabel("Date")
+    plt.ylabel("Average Load in MW")
+    plt.annotate("Lockdown 1", xy=(y.idxmin(),y.min()), xytext=(40,20),**params)
+    plt.annotate("Cyclone Nisarga", xy=(y.loc[datetime.date(2020, 6, 1):datetime.date(2020, 7, 1)].idxmin(),y.loc[datetime.date(2020, 6, 1):datetime.date(2020, 7, 1)].min()), xytext=(40,-20), **params)
+    plt.show()
+
+def east_cyclone_demand_shock():
+    east_pivoted = pd.pivot_table(df, index=["Dates"], columns="Time", values="East")
+    east_2020 = east_pivoted.loc[datetime.date(2020, 1, 1):datetime.date(2020, 12, 31)]
+    east_daily_means = east_2020.aggregate("mean", axis=1)
+    y = east_daily_means
+
+    params = {
+        "textcoords":"offset points",
+        "arrowprops":dict(arrowstyle="->")
+    }
+    plt.plot(pd.date_range("2020-01-01", "2020-12-31", freq="D"), y)
+    plt.xticks(pd.date_range("2020-01-01", "2020-12-31", freq="MS"), rotation=45)
+    plt.title("Demand Shocks In The East")
+    plt.xlabel("Date")
+    plt.ylabel("Average Load in MW")
+    plt.annotate("Cyclone Amphan", xy=(y.idxmin(),y.min()), xytext=(40,20), **params)
+    plt.show()
+
+
+west_cyclone_demand_shock()
+east_cyclone_demand_shock()
