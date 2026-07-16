@@ -35,12 +35,25 @@ def lockdown_demand_shock():
     day_means_2020 = df_national_2020.aggregate("mean", axis=1)
     day_means_2020 = day_means_2020.drop(datetime.date(2020, 2, 29))
     day_means_expected = day_means_2019* growth_factor
-    print(f"Minimum Average Load of 2020: {day_means_2020.min()}, Day of Minimum Load: {day_means_2020.idxmin()}")
+    day_means_expected.index = pd.date_range("2020-01-01", "2020-12-31", freq="D").drop("2020-02-29")
+    y = day_means_2020.rolling(7, center=True).median()
 
-    plt.plot(pd.date_range("2020-01-01", "2020-12-31", freq="D").drop(["2020-02-29"]), day_means_2020.rolling(7, center=True).median())
-    plt.plot(pd.date_range("2020-01-01", "2020-12-31", freq="D").drop(["2020-02-29"]), day_means_expected.rolling(7, center=True).median())
+    print(f"Minimum Average Load of 2020: {day_means_2020.min()}, Day of Minimum Load: {day_means_2020.idxmin()}")
+    params = {
+        "textcoords":"offset points",
+        "arrowprops":dict(arrowstyle="->")
+    }
+    plt.plot(pd.date_range("2020-01-01", "2020-12-31", freq="D").drop(["2020-02-29"]), y, color="darkblue")
+    plt.plot(pd.date_range("2020-01-01", "2020-12-31", freq="D").drop(["2020-02-29"]), day_means_2020, color="lightgrey", alpha=0.5, linewidth=0.5)
+    plt.plot(pd.date_range("2020-01-01", "2020-12-31", freq="D").drop(["2020-02-29"]), day_means_expected.rolling(7, center=True).median(), linestyle="dashed", color="grey")
     plt.xticks(pd.date_range("2020-01-01", "2020-12-31", freq="MS"), rotation=45)
-    plt.annotate("Lockdown 1", xy=(day_means_2020.idxmin(),day_means_2020.min()), xytext=(40,20), textcoords="offset points", arrowprops=dict(arrowstyle="->"))
+    plt.annotate("Lockdown Starts", xy=(y.idxmin(),y.min()), xytext=(40,20), **params)
+    plt.title("Effect of the Lockdown on Electrical Load", fontweight="bold")
+    plt.xlabel("Date", fontweight="bold")
+    plt.ylabel("Average Load in MW", fontweight="bold")
+    plt.grid(axis="y", alpha=0.25, linewidth=0.6, linestyle="dashed")
+    plt.axvspan("2020-03-25", "2020-05-31", alpha=0.12, color="grey")
+    plt.annotate("Lockdown Ends", xy=(datetime.date(2020, 6, 2),y.loc[datetime.date(2020, 6, 2)]), xytext=(40,-30), **params)
     plt.show()
 
 
@@ -53,12 +66,12 @@ def west_cyclone_demand_shock():
         "textcoords":"offset points",
         "arrowprops":dict(arrowstyle="->")
     }
-    plt.plot(pd.date_range("2020-01-01", "2020-12-31", freq="D"), y)
-    plt.xticks(pd.date_range("2020-01-01", "2020-12-31", freq="MS"))
-    plt.title("Demand Shocks In The West")
+    plt.plot(pd.date_range("2020-01-01", "2020-12-31", freq="D"), y, color="#d85a30")
+    plt.title("Effect of Cyclone Nisarga", fontweight="bold")
     plt.xticks(pd.date_range("2020-01-01", "2020-12-31", freq="MS"), rotation=45)
-    plt.xlabel("Date")
-    plt.ylabel("Average Load in MW")
+    plt.xlabel("Date", fontweight="bold")
+    plt.grid(axis="y", alpha=0.25, linewidth=0.6, linestyle="dashed")
+    plt.ylabel("Average Load in MW", fontweight="bold")
     plt.annotate("Lockdown 1", xy=(y.idxmin(),y.min()), xytext=(40,20),**params)
     plt.annotate("Cyclone Nisarga", xy=(y.loc[datetime.date(2020, 6, 1):datetime.date(2020, 7, 1)].idxmin(),y.loc[datetime.date(2020, 6, 1):datetime.date(2020, 7, 1)].min()), xytext=(40,-20), **params)
     plt.show()
@@ -73,14 +86,16 @@ def east_cyclone_demand_shock():
         "textcoords":"offset points",
         "arrowprops":dict(arrowstyle="->")
     }
-    plt.plot(pd.date_range("2020-01-01", "2020-12-31", freq="D"), y)
+    plt.plot(pd.date_range("2020-01-01", "2020-12-31", freq="D"), y, color="#93373f")
     plt.xticks(pd.date_range("2020-01-01", "2020-12-31", freq="MS"), rotation=45)
-    plt.title("Demand Shocks In The East")
-    plt.xlabel("Date")
-    plt.ylabel("Average Load in MW")
+    plt.title("Effect of Cyclone Amphan", fontweight="bold")
+    plt.xlabel("Date", fontweight="bold")
+    plt.ylabel("Average Load in MW", fontweight="bold")
+    plt.grid(axis="y", alpha=0.25, linewidth=0.6, linestyle="dashed")
     plt.annotate("Cyclone Amphan", xy=(y.idxmin(),y.min()), xytext=(40,20), **params)
     plt.show()
 
 
-west_cyclone_demand_shock()
 east_cyclone_demand_shock()
+west_cyclone_demand_shock()
+lockdown_demand_shock()
