@@ -12,7 +12,7 @@ df['Dates'] = df.index.date
 df['Time'] = df.index.time
 df_national = df[["National"]]
 
-def lockdown_demand_shock():
+def lockdown_demand_shock(arg):
     df_national_2019_pre_lockdown = df_national.loc["2019-1-1":"2019-3-15"]
     df_national_2020_pre_lockdown = df_national.loc["2020-1-1":"2020-3-15"]
 
@@ -38,23 +38,42 @@ def lockdown_demand_shock():
     day_means_expected.index = pd.date_range("2020-01-01", "2020-12-31", freq="D").drop("2020-02-29")
     y = day_means_2020.rolling(7, center=True).median()
 
-    print(f"Minimum Average Load of 2020: {day_means_2020.min()}, Day of Minimum Load: {day_means_2020.idxmin()}")
+    deviation = (day_means_2020 / day_means_expected - 1) * 100
+    smoothened_deviation = deviation.rolling(7, center=True).median()
+
     params = {
         "textcoords":"offset points",
         "arrowprops":dict(arrowstyle="->")
     }
-    plt.plot(pd.date_range("2020-01-01", "2020-12-31", freq="D").drop(["2020-02-29"]), y, color="#1d5c4c")
-    plt.plot(pd.date_range("2020-01-01", "2020-12-31", freq="D").drop(["2020-02-29"]), day_means_2020, color="lightgrey", alpha=0.5, linewidth=0.5)
-    plt.plot(pd.date_range("2020-01-01", "2020-12-31", freq="D").drop(["2020-02-29"]), day_means_expected.rolling(7, center=True).median(), linestyle="dashed", color="grey")
-    plt.xticks(pd.date_range("2020-01-01", "2020-12-31", freq="MS"), rotation=45)
-    plt.annotate("Lockdown Starts", xy=(y.idxmin(),y.min()), xytext=(40,20), **params)
-    plt.title("Effect of the Lockdown on Electrical Load", fontweight="bold")
-    plt.xlabel("Date", fontweight="bold")
-    plt.ylabel("Average Load in MW", fontweight="bold")
-    plt.grid(axis="y", alpha=0.25, linewidth=0.6, linestyle="dashed")
-    plt.axvspan("2020-03-25", "2020-05-31", alpha=0.12, color="grey")
-    plt.annotate("Lockdown Ends", xy=(datetime.date(2020, 6, 2),y.loc[datetime.date(2020, 6, 2)]), xytext=(40,-30), **params)
-    plt.show()
+    if arg == 0:
+        min = smoothened_deviation.min()
+        min_date = smoothened_deviation.idxmin()      
+        duration = (smoothened_deviation.loc[datetime.date(2020, 3, 25): datetime.date(2020, 9, 1)] < 5).sum()
+        print(f"The demand crash lasted for {duration} days. The depth was {min.round(2)}% which occured on {str(min_date)}")
+        plt.plot(pd.date_range("2020-01-01", "2020-12-31", freq="D").drop(["2020-02-29"]), deviation, color="gray", alpha=0.5, linewidth=0.7)
+        plt.plot(pd.date_range("2020-01-01", "2020-12-31", freq="D").drop(["2020-02-29"]), smoothened_deviation, color="#BA7517")
+        plt.axhspan(-5, 5, alpha=0.5, color="lightgray")
+        plt.title("Deviation With Respect To Expected Value", fontweight="bold")
+        plt.xlabel("Date", fontweight="bold")
+        plt.ylabel("Percentage", fontweight="bold")
+        plt.grid(axis="y", alpha=0.25, linewidth=0.6, linestyle="dashed")
+        plt.show()
+    elif arg == 1:
+        print(f"Minimum Average Load of 2020: {day_means_2020.min()}, Day of Minimum Load: {day_means_2020.idxmin()}")
+        plt.plot(pd.date_range("2020-01-01", "2020-12-31", freq="D").drop(["2020-02-29"]), y, color="#1d5c4c")
+        plt.plot(pd.date_range("2020-01-01", "2020-12-31", freq="D").drop(["2020-02-29"]), day_means_2020, color="lightgrey", alpha=0.5, linewidth=0.5)
+        plt.plot(pd.date_range("2020-01-01", "2020-12-31", freq="D").drop(["2020-02-29"]), day_means_expected.rolling(7, center=True).median(), linestyle="dashed", color="grey")
+        plt.xticks(pd.date_range("2020-01-01", "2020-12-31", freq="MS"), rotation=45)
+        plt.annotate("Lockdown Starts", xy=(y.idxmin(),y.min()), xytext=(40,20), **params)
+        plt.title("Effect of the Lockdown on Electrical Load", fontweight="bold")
+        plt.xlabel("Date", fontweight="bold")
+        plt.ylabel("Average Load in MW", fontweight="bold")
+        plt.grid(axis="y", alpha=0.25, linewidth=0.6, linestyle="dashed")
+        plt.axvspan("2020-03-25", "2020-05-31", alpha=0.12, color="grey")
+        plt.annotate("Lockdown Ends", xy=(datetime.date(2020, 6, 2),y.loc[datetime.date(2020, 6, 2)]), xytext=(40,-30), **params)
+        plt.show()
+
+    else: print("Enter 0 or 1\n0 for deviation curve\n1 for load curve")
 
 
 def west_cyclone_demand_shock():
@@ -96,6 +115,3 @@ def east_cyclone_demand_shock():
     plt.show()
 
 
-east_cyclone_demand_shock()
-west_cyclone_demand_shock()
-lockdown_demand_shock()
