@@ -62,7 +62,7 @@ def normalized_day_curves(region_list: list, year_list: list):
         ax.text(23.2, plot.iloc[-1], year, fontweight="bold", color=colors[year])
 
         print(f"Year: {year}, Time of Max Load: {plot.idxmax()}, Max Load: +{((plot.max()- 1)*100).round(2)}%")
-        result = {"Year":year, "Morning Spike": f"+{((times[2].max()-1)*100).round(2)}%", "Mid-Day Drop from Peak": f"+{(((times[2].max()-1)*100) - ((times[0].min()-1)*100)).round(2)}%", "Evening Spike": f"+{((times[1].max()-1)*100).round(2)}"}
+        result = {"Year":year, "Morning Spike": f"+{((times[2].max()-1)*100).round(2)}%", "Mid-Day Drop from Peak": f"+{(((times[2].max()-1)*100) - ((times[0].min()-1)*100)).round(2)}%", "Evening Spike": f"+{((times[1].max()-1)*100).round(2)}%"}
         output_list.append(result)
 
     output = pd.DataFrame(output_list)
