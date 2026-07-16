@@ -5,20 +5,16 @@ import datetime
 import numpy as np
 
 #------------MAIN LOOP FOR AVERAGES GRAPHS---------------------
-def normalized_day_curves(df, region_list: list, year_list: list):
+def normalized_day_curves(df):
     df['Dates'] = pd.to_datetime(df['datetime']).dt.date
     df['Time'] = pd.to_datetime(df['datetime']).dt.time
-
+    year_list = [2019, 2020, 2021, 2022, 2023]
     plots_list = []
-    if not isinstance(region_list, list):
-        raise TypeError
     if not isinstance(year_list, list):
         raise TypeError
-    for region, year in zip(region_list, year_list, strict=True):
-
-        if year in [2019, 2020, 2021, 2022, 2023] and region in ["National", "North", "East", "West", "South", "North East"]:
+    for year in year_list:
             #----------------------CORE LOGIC------------------------
-            pivoted_region = pd.pivot_table(df, index=["Dates"], columns="Time", values=region)
+            pivoted_region = pd.pivot_table(df, index=["Dates"], columns="Time", values="National")
 
             #DataFrame not Pivot Table
             df_region_interval = pivoted_region.loc[datetime.date(year, 1, 1):datetime.date(year, 12, 31)]
@@ -28,15 +24,11 @@ def normalized_day_curves(df, region_list: list, year_list: list):
 
             assert np.allclose(normalized_days.mean(axis=1), 1.0), "normalization invariant broken"
             plots_list.append(normalized_day)
-        else:
-            print("Enter Data as specified!")
-            return None
 
 
     #---------PLOTTING---------------
     ticks = pd.date_range("01-01-2019", "01-02-2019", freq="h", inclusive="left").hour.astype(str)
     alphas = {2019: 0.2, 2020: 0.4, 2021:0.6, 2022: 0.8, 2023: 1}
-    #----------THE ACTUAL PLOTS------------
     #----------THE ACTUAL PLOTS------------
     fig, ax = plt.subplots(figsize=(8, 4.5), layout='constrained')
     output_list = []
@@ -70,4 +62,4 @@ def normalized_day_curves(df, region_list: list, year_list: list):
 if __name__ == "__main__":
     base_dir = Path(__file__).parent
     df = pd.read_excel(f"{base_dir}/MainData.xlsx")
-    normalized_day_curves(df,["National", "National", "National", "National", "National"], [2019, 2020, 2021, 2022, 2023])
+    normalized_day_curves(df)

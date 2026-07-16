@@ -27,9 +27,9 @@ def main() -> None:
                 print("Enter proper data!!")
 
             if int(_) == 1:
-                average_day_curves(df,["National", "National", "National", "National", "National"], [2019,2020, 2021, 2022, 2023])
+                average_day_curves(df)
             elif int(_) == 2:
-                normalized_day_curves(df,["National", "National", "National", "National", "National"], [2019, 2020, 2021, 2022, 2023])
+                normalized_day_curves(df)
             elif int(_) == 3:
                 lockdown_demand_shock(df, 1)
             elif int(_) == 4:

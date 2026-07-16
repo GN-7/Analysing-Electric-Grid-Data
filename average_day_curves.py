@@ -4,29 +4,22 @@ from pathlib import Path
 import datetime
 
 #------------MAIN LOOP FOR AVERAGES GRAPHS---------------------
-def average_day_curves(df, region_list : list, year_list: list):
+def average_day_curves(df):
+    year_list = [2019, 2020, 2021, 2022, 2023]
     df['Dates'] = pd.to_datetime(df['datetime']).dt.date
     df['Time'] = pd.to_datetime(df['datetime']).dt.time
     plots_list = []
-    if not isinstance(region_list, list):
-        raise TypeError
     if not isinstance(year_list, list):
         raise TypeError
     
-    for region, year in zip(region_list, year_list, strict=True):
+    for year in year_list:
 
-        if year in [2019, 2020, 2021, 2022, 2023] and region in ["National", "North", "East", "West", "South", "North East"]:
             #----------------------CORE LOGIC------------------------
-            pivoted_region = pd.pivot_table(df, index=["Dates"], columns="Time", values=region)
-
+            pivoted_region = pd.pivot_table(df, index=["Dates"], columns="Time", values="National")
             #DataFrame not Pivot Table
             df_region_interval = pivoted_region.loc[datetime.date(year, 1, 1):datetime.date(year, 12, 31)] 
             avg_day_in_region_in_interval = df_region_interval.aggregate("mean", axis=0) #TRY AXIS 1 ALSO FOR DIFFERENT METRIC
             plots_list.append(avg_day_in_region_in_interval)
-
-        else:
-            print("Enter Proper Data!")
-            return None
 
 
     #---------PLOTTING---------------
@@ -52,4 +45,4 @@ def average_day_curves(df, region_list : list, year_list: list):
 if __name__ == "__main__":
     base_dir = Path(__file__).parent
     df = pd.read_excel(f"{base_dir}/MainData.xlsx")
-    average_day_curves(df, ["National", "National", "National", "National", "National"], [2019,2020, 2021, 2022, 2023])
+    average_day_curves(df)
