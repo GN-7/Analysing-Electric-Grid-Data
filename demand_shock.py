@@ -57,7 +57,7 @@ def lockdown_demand_shock(df, arg):
         plt.ylabel("Percentage", fontweight="bold")
         plt.grid(axis="y", alpha=0.25, linewidth=0.6, linestyle="dashed")
         plt.legend()
-        plt.savefig(f"{base_dir}/outputs/lockdown_demand_shock.svg")
+        plt.savefig(f"{base_dir}/outputs/lockdown_demand_deviation.svg")
         plt.close(None)
     elif arg == 1:
         print(f"Minimum Average Load of 2020: {day_means_2020.min()}, Day of Minimum Load: {day_means_2020.idxmin()}")
@@ -72,7 +72,7 @@ def lockdown_demand_shock(df, arg):
         plt.grid(axis="y", alpha=0.25, linewidth=0.6, linestyle="dashed")
         plt.axvspan("2020-03-25", "2020-05-31", alpha=0.12, color="grey", label="Lockdown Duration")
         plt.legend()
-        plt.savefig(f"{base_dir}/outputs/lockdown_demand_deviation.svg")
+        plt.savefig(f"{base_dir}/outputs/lockdown_demand_shock.svg")
         plt.close(None)
 
     else: print("Enter 0 or 1\n0 for deviation curve\n1 for load curve")
