@@ -125,8 +125,7 @@ def east_cyclone_demand_shock(df):
 
 if __name__ == "__main__":
     df = pd.read_excel(f"{base_dir}/MainData.xlsx")
-
-    west_cyclone_demand_shock(df)
-    east_cyclone_demand_shock(df)
     lockdown_demand_shock(df,0)
     lockdown_demand_shock(df,1)
+'''    west_cyclone_demand_shock(df)
+    east_cyclone_demand_shock(df)'''
