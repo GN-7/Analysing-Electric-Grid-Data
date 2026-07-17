@@ -36,7 +36,7 @@ Let's find out what an **Average Day** in the **West** looked like back in **202
    ## Load Curves of the Average Day(2019-2023)
 
    Plotting the evolution of the **Average Day** Load curves from 2019 to 2023 for the whole country looks like this:
-   ![Plot of load curves](assets/average_day_curves.svg)
+    - ![Plot of load curves](assets/average_day_curves.svg)
 
    ### Inferences drawn from the load curves
 
@@ -50,18 +50,18 @@ Let's find out what an **Average Day** in the **West** looked like back in **202
    - To find %age increase or decrease during demand spikes or crashes cannot be done solely based on the above curve.
    - Thus, we normalize the data. Normalization is just basic division and average
    - Let's normalize the data for the year **2019**, **National** region.
-     ![2019 National Data](assets/figure_5.png)
+   - ![2019 National Data](assets/figure_5.png)
    - Let us average it row-wise to get the average load for each day for the whole year.(Not to be confused with **Average Day**)
-     ![Average](assets/figure_6.png)
+   - ![Average](assets/figure_6.png)
    - From the above figure, we have 365 values corresponding to the average load of each calendar day.
    - Now, the core normalization logic, we divide each row from the former figure with it's corresponding mean from the latter figure.
    - It gives us this data:
-     ![DF](assets/figure_7.png)
+   - ![DF](assets/figure_7.png)
 
    - Now, to get the **Normalized Load Curve** for 2019, we average the above data column-wise.
    ![](assets/figure_8.png)
    - Plotting these values for all years 2019-2023 results in the following curve:
-     ![Normalized Average Curve](assets/normalized_day_curves.svg)
+   -  ![Normalized Average Curve](assets/normalized_day_curves.svg)
 
    ### Inferences
     | Year | Morning Spike | Mid-Day dip from peak | Evening Spike |
@@ -86,4 +86,26 @@ Let's find out what an **Average Day** in the **West** looked like back in **202
     - But naturally, the dates won't match directly, Ex: Jan 1 2019 is a Tuesday but Jan 1 2020 is a Wednesday. We get such a few mismatches in the start and end, so I dropped those records.
     - Dividing the mean of the data for 2020 by the mean of 2019 gives the **growth factor** as 1.02944.
     - Plotting the expected 2020 data with the actual data we get the following curve
-      ![Raw Demand Shock due to Lockdown](assets/lockdown_demand_shock.svg)
+    - ![Raw Demand Shock due to Lockdown](assets/lockdown_demand_shock.svg)
+      ### Inferences
+    - The electric demand spent 134 days below the -5% band for 134 days of 160 days from Mar 25 2020 and Sep 1 2020
+    - The minimum load occuring on Mar 27 2020 with a negative deviation of 32.3%
+  
+      ### Deviation Curve
+    - From the raw data, I calculated the deviation percentage, that is, ((2020_actual /2020_expected) - 1)*100
+    - Let us define -5% to +5% deviation as acceptable, or consequence of other variations.
+    - Plotting the deviations, we get:
+    - ![Deviation Graph](assets/lockdown_demand_deviation.svg)
+
+   ### Cyclone Nisarga and Amphan
+     - Cyclone Nisarga was the most powerful cyclone that hit Maharashtra since 1981. This disaster disrupted electric demand and supply in June 2020
+     - The graph highlights it:
+     - ![Cyclone Nisarga](assets/west_cyclone_demand_shock.svg)
+  
+     - Cyclone Amphan hit Eastern India between 16-21 June 2020, wrecking havoc in the region.
+     - Its impact is listed below:
+     - ![Cyclone Amphan](assets/east_cyclone_demand_shock.svg)
+       
+## Conclusion
+ - This project has analyzed the trends and behaviour of electric load from 2019-2023 within the country, while also dealing with major demand shocks.
+ - Successfully implemented using Pandas and Matplotlib
