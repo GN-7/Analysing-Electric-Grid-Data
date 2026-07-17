@@ -37,10 +37,10 @@ def normalized_day_curves(df):
              plot.loc[datetime.time(18, 0, 0) : datetime.time(21, 0, 0)],
              plot.loc[datetime.time(8, 0, 0) : datetime.time(13, 0, 0)],
              ]
-        ax.plot(ticks, plot, color="#1d5c4c", label=year, alpha=alphas[year])
+        ax.plot(ticks, (plot - 1)*100, color="#1d5c4c", label=year, alpha=alphas[year])
 
         print(f"Year: {year}, Time of Max Load: {plot.idxmax()}, Max Load: +{((plot.max()- 1)*100).round(2)}%")
-        result = {"Year":year, "Morning Spike": f"+{((times[2].max()-1)*100).round(2)}%", "Mid-Day Drop from Peak": f"+{(((times[2].max()-1)*100) - ((times[0].min()-1)*100)).round(2)}%", "Evening Spike": f"+{((times[1].max()-1)*100).round(2)}%"}
+        result = {"Year":year, "Morning Spike": f"+{((times[2].max()-1)*100).round(2)}%", "Mid-Day Drop from Peak": f"{(((times[2].max()-1)*100) - ((times[0].min()-1)*100)).round(2)}%", "Evening Spike": f"+{((times[1].max()-1)*100).round(2)}%"}
         output_list.append(result)
 
     output = pd.DataFrame(output_list)
@@ -49,10 +49,10 @@ def normalized_day_curves(df):
     
     #---------PLOT CUSTOMIZATION------------------
     plt.title("Normalized Day")
-    plt.plot(ticks, [1 for i in range(24)], linestyle="dashed", color="gray")
+    plt.plot(ticks, [0 for i in range(24)], linestyle="dashed", color="gray")
     ax.set_title("India's Average Day, Normalized", fontweight="bold")
     ax.set_xlabel('Hour of day', fontweight="bold")
-    ax.set_ylabel('Deviation from mean', fontweight="bold")
+    ax.set_ylabel('Deviation from mean in Percentage', fontweight="bold")
     ax.set_xlim(0, 24.6)
     ax.set_xticks(ticks)
     ax.grid(axis="y", alpha=0.25, linewidth=0.6, linestyle="dashed")
