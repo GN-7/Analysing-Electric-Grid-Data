@@ -57,7 +57,8 @@ def lockdown_demand_shock(df, arg):
         plt.ylabel("Percentage", fontweight="bold")
         plt.grid(axis="y", alpha=0.25, linewidth=0.6, linestyle="dashed")
         plt.legend()
-        plt.savefig(f"{base_dir}/outputs/lockdown_demand_shock.png")
+        plt.savefig(f"{base_dir}/outputs/lockdown_demand_shock.svg")
+        plt.close(None)
     elif arg == 1:
         print(f"Minimum Average Load of 2020: {day_means_2020.min()}, Day of Minimum Load: {day_means_2020.idxmin()}")
         plt.plot(pd.date_range("2020-01-01", "2020-12-31", freq="D").drop(["2020-02-29"]), y, color="#1d5c4c", label="Smoothened Load of 2020")
@@ -71,7 +72,8 @@ def lockdown_demand_shock(df, arg):
         plt.grid(axis="y", alpha=0.25, linewidth=0.6, linestyle="dashed")
         plt.axvspan("2020-03-25", "2020-05-31", alpha=0.12, color="grey", label="Lockdown Duration")
         plt.legend()
-        plt.savefig(f"{base_dir}/outputs/lockdown_demand_deviation.png")
+        plt.savefig(f"{base_dir}/outputs/lockdown_demand_deviation.svg")
+        plt.close(None)
 
     else: print("Enter 0 or 1\n0 for deviation curve\n1 for load curve")
 
@@ -95,7 +97,8 @@ def west_cyclone_demand_shock(df):
     plt.ylabel("Average Load in MW", fontweight="bold")
     plt.annotate("Lockdown 1", xy=(y.idxmin(),y.min()), xytext=(40,20),**params)
     plt.annotate("Cyclone Nisarga", xy=(y.loc[datetime.date(2020, 6, 1):datetime.date(2020, 7, 1)].idxmin(),y.loc[datetime.date(2020, 6, 1):datetime.date(2020, 7, 1)].min()), xytext=(40,-20), **params)
-    plt.savefig(f"{base_dir}/outputs/west_cyclone_demand_shock.png")
+    plt.savefig(f"{base_dir}/outputs/west_cyclone_demand_shock.svg")
+    plt.close(None)
 
 def east_cyclone_demand_shock(df):
     df = df.set_index("datetime")
@@ -117,7 +120,8 @@ def east_cyclone_demand_shock(df):
     plt.ylabel("Average Load in MW", fontweight="bold")
     plt.grid(axis="y", alpha=0.25, linewidth=0.6, linestyle="dashed")
     plt.annotate("Cyclone Amphan", xy=(y.idxmin(),y.min()), xytext=(40,20), **params)
-    plt.savefig(f"{base_dir}/outputs/east_cyclone_demand_shock.png")
+    plt.savefig(f"{base_dir}/outputs/east_cyclone_demand_shock.svg")
+    plt.close(None)
 
 if __name__ == "__main__":
     df = pd.read_excel(f"{base_dir}/MainData.xlsx")
