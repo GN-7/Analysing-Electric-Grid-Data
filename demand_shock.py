@@ -51,7 +51,7 @@ def lockdown_demand_shock(df, arg):
         print(f"Demand was below the -5% threshold on {duration} days between 25 March and 1 September. The depth was {min.round(2)}% which occured on {str(min_date)}")
         plt.plot(pd.date_range("2020-01-01", "2020-12-31", freq="D").drop(["2020-02-29"]), deviation, color="gray", alpha=0.5, linewidth=0.7, label="Raw Deviation Percentage")
         plt.plot(pd.date_range("2020-01-01", "2020-12-31", freq="D").drop(["2020-02-29"]), smoothened_deviation, color="#BA7517", label="Smoothened - 7 Day Median")
-        plt.axhspan(-5, 5, alpha=0.5, color="lightgray", label="Recovery Band")
+        plt.axhspan(-5, 5, alpha=0.5, color="lightgray", label="5% Deviation Band")
         plt.title("Deviation With Respect To Expected Value", fontweight="bold")
         plt.xlabel("Date", fontweight="bold")
         plt.ylabel("Percentage", fontweight="bold")

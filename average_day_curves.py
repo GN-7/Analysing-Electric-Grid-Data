@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 import datetime
 
+base_dir = Path(__file__).parent
 #------------MAIN LOOP FOR AVERAGES GRAPHS---------------------
 def average_day_curves(df):
     year_list = [2019, 2020, 2021, 2022, 2023]
@@ -44,6 +45,5 @@ def average_day_curves(df):
     plt.close()
 
 if __name__ == "__main__":
-    base_dir = Path(__file__).parent
     df = pd.read_excel(f"{base_dir}/MainData.xlsx")
     average_day_curves(df)
