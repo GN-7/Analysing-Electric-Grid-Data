@@ -36,7 +36,7 @@ Let's find out what an **Average Day** in the **West** looked like back in **202
    ## Load Curves of the Average Day(2019-2023)
 
    Plotting the evolution of the **Average Day** Load curves from 2019 to 2023 for the whole country looks like this:
-   ![Plot of load curves](assets/average_day_curves.png)
+   ![Plot of load curves](assets/average_day_curves.svg)
 
    ### Inferences drawn from the load curves
 
@@ -61,7 +61,7 @@ Let's find out what an **Average Day** in the **West** looked like back in **202
    - Now, to get the **Normalized Load Curve** for 2019, we average the above data column-wise.
    ![](assets/figure_8.png)
    - Plotting these values for all years 2019-2023 results in the following curve:
-     ![Normalized Average Curve](assets/normalized_day_curves.png)
+     ![Normalized Average Curve](assets/normalized_day_curves.svg)
 
    ### Inferences
     | Year | Morning Spike | Mid-Day dip from peak | Evening Spike |
@@ -78,4 +78,12 @@ Let's find out what an **Average Day** in the **West** looked like back in **202
     - Let us look at their effects on electrical load.
   
    ### The COVID-19 Pandemic
-    - 
+    - We already know that the pandemic has caused widespread mayhem. It also reflects in the electric load data.
+    - First, let's determine a expected value that 2020 **might** have followed if there was no pandemic.
+    - To do so, I have considered the period of 2020 before the lockdown, that is, Jan 1 - Mar 15.
+    - Then, Compare it with 2019 to get an expected **growth factor** that 2020 **might** have grown with.
+    - To do this, we align the data of  2019 and 2020 by weekday. This is because weekend and weekday alignment is important as the demands differ.
+    - But naturally, the dates won't match directly, Ex: Jan 1 2019 is a Tuesday but Jan 1 2020 is a Wednesday. We get such a few mismatches in the start and end, so I dropped those records.
+    - Dividing the mean of the data for 2020 by the mean of 2019 gives the **growth factor** as 1.02944.
+    - Plotting the expected 2020 data with the actual data we get the following curve
+      ![Raw Demand Shock due to Lockdown](assets/lockdown_demand_shock.svg)
