@@ -44,4 +44,6 @@ def main() -> None:
         except ValueError:
             print("Please print a number from 1 to 7! ")
 
-main()
+
+if __name__ == "__main__":
+    main()

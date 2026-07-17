@@ -40,7 +40,8 @@ def average_day_curves(df):
     plt.xticks(ticks)
     plt.grid(axis="y", alpha=0.25, linewidth=0.6, linestyle="dashed")
     plt.legend()
-    plt.savefig("assets/average_day_curves.png")
+    plt.savefig("outputs/average_day_curves.png")
+    plt.close()
 
 if __name__ == "__main__":
     base_dir = Path(__file__).parent
