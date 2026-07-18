@@ -6,7 +6,7 @@ With the help of Python libraries like Pandas and MatPlotLib, the data with ~470
 The results of the analysis are presented below.
 
 >**NOTE:**
-> - The graphs and data present below are reproducible.
+> - The graphs and data present below are reproducible.(Steps mentioned in ![`README`](README.md))
 > - Only the Data upto 2023 is used as there only is data upto 30 April 2024
 
 First, let's define the term **Average Day**: An average day is calculated across region and time interval.
