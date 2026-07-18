@@ -15,6 +15,13 @@ It was made using:
  - Read the report.md file for a detailed report on the logic, preocedure and the final results of the project.
  - Read the findings.md file for a basic overview.
 
+## Reproduce the Findings
+    git clone <repo> && cd Analysing-Electric-Grid-Data
+    python -m venv .venv && source .venv/Scripts/activate
+    pip install -r requirements.txt
+    python main.py
+Built on Python 3.14.
+
 ## Authors
  - @GN-7 G Nipun
 
