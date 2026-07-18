@@ -13,12 +13,12 @@ def main() -> None:
         try:
             _ = input(
                 """
-            To view the Average Day Curves in the National region for years(2019-2023), Enter 1
-            To view the Normalized Load Curve in the National region for the years(2019-2023), Enter 2
-            To view the Impact of COVID-19 on Electric Load, Enter 3
-            To view the Deviation from expected value curve, Enter 4
-            To view the Impact of Amphan Cyclone, Enter 5
-            To view the Impact of Nisarga Cyclone, Enter 6
+            To generate the Average Day Curves in the National region for years(2019-2023), Enter 1
+            To generate the Normalized Load Curve in the National region for the years(2019-2023), Enter 2
+            To generate the Impact of COVID-19 on Electric Load, Enter 3
+            To generate the Deviation from expected value curve, Enter 4
+            To generate the Impact of Amphan Cyclone, Enter 5
+            To generate the Impact of Nisarga Cyclone, Enter 6
             To exit the loop, Enter 7: 
         """
             )
